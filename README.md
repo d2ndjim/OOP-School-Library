@@ -10,6 +10,22 @@
 - Ruby
 - Git
 
+## Get Started
+
+#### Cloning the project
+
+```
+git clone  <https://github.com/d2ndjim/OOP-School-Library.git>
+```
+
+#### Run the project
+- Run 
+  ```
+  bundle install
+  ```
+
+
+
 ## Authors
 
 👤 **Author1**

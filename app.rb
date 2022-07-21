@@ -4,6 +4,20 @@ require './book'
 require './rental'
 require './person'
 
+def student_age
+  print 'Age: '
+  age = gets.chomp
+  print 'Name: '
+  name = gets.chomp
+  print 'Classroom:'
+  classroom = gets.chomp
+  print 'Has parent permission? [Y/N]: '
+  parent_permission = gets.chomp
+  student = Student.new(age, name, classroom, parent_permission)
+  @people.push(student)
+  puts "Person created successfuly\n"
+end
+
 class App
   def initialize
     @books = []
@@ -43,25 +57,10 @@ class App
 
   def create_person
     print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
-
     option = gets.chomp
-
     case option
     when '1'
-      print 'Age: '
-      age = gets.chomp
-      print 'Name: '
-      name = gets.chomp
-      print 'Classroom:'
-      classroom = gets.chomp
-      print 'Has parent permission? [Y/N]: '
-      permission_resp = gets.chomp
-      parent_permission = permission_resp.downcase == 'y'
-
-      student = Student.new(age, name, classroom, parent_permission)
-      @people.push(student)
-
-      puts "Person created successfuly\n"
+      student_age
     when '2'
       print 'Age: '
       age = gets.chomp
@@ -69,15 +68,9 @@ class App
       name = gets.chomp
       print 'Specialization: '
       specialization = gets.chomp
-
       teacher = Teacher.new(age, name, specialization, parent_permission)
       @people.push(teacher)
-
       puts "Person created successfuly\n"
-
-    else
-      puts 'Please choose number 1 or 2'
-      nil
     end
   end
 
@@ -100,10 +93,7 @@ class App
   end
 
   def create_rental
-    if @people.empty? && @books.empty?
-      puts 'Your Library is empty'
-      return
-    end
+    puts 'Your Library is empty' if @people.empty? && @books.empty?
     puts 'Select a book by number'
     @books.each_with_index do |book, i|
       print "#{i}) Title: #{book.title}, Author: #{book.author}\n"
@@ -119,14 +109,10 @@ class App
 
     person_index = gets.chomp.to_i
     person = @people[person_index]
-
     print "\nDate: "
-
     date = gets.chomp
-
     rental = Rental.new(date, book, person)
     @rentals << rental
-
     puts "Rental created successfully\n"
   end
-end 
+end
